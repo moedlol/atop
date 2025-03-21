@@ -51,16 +51,6 @@ submitButton.Font = Enum.Font.SourceSansBold
 submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 submitButton.Parent = keyFrame
 
-local errorLabel = Instance.new("TextLabel")
-errorLabel.Size = UDim2.new(0.8, 0, 0.1, 0)
-errorLabel.Position = UDim2.new(0.1, 0, 0.55, 0)
-errorLabel.BackgroundTransparency = 1
-errorLabel.Text = ""
-errorLabel.TextScaled = true
-errorLabel.Font = Enum.Font.SourceSansBold
-errorLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
-errorLabel.Parent = keyFrame
-
 -- Main GUI (initially disabled)
 local gui = Instance.new("ScreenGui")
 gui.Name = "FeBypassGui"
@@ -78,9 +68,21 @@ mainFrame.Parent = gui
 mainFrame.Active = true
 mainFrame.Draggable = true
 
+-- Project Nest Button
+local nestExecutorButton = Instance.new("TextButton")
+nestExecutorButton.Size = UDim2.new(0.15, 0, 0.12, 0)
+nestExecutorButton.Position = UDim2.new(0, 0, 0, 0)
+nestExecutorButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+nestExecutorButton.Text = "Project Nest"
+nestExecutorButton.TextScaled = true
+nestExecutorButton.Font = Enum.Font.SourceSansBold
+nestExecutorButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+nestExecutorButton.Parent = mainFrame
+nestExecutorButton.Active = false  -- Initially inactive
+
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0.12, 0)
-title.Position = UDim2.new(0, 0, 0, 0)
+title.Size = UDim2.new(0.85, 0, 0.12, 0)
+title.Position = UDim2.new(0.15, 0, 0, 0)  -- Adjusted to make space for Project Nest button
 title.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 title.Text = "Fe Bypass Executor"
 title.TextScaled = true
@@ -109,7 +111,18 @@ textBox.Text = "Enter script here..."
 textBox.TextScaled = true
 textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 textBox.Font = Enum.Font.SourceSansBold
+textBox.ClearTextOnFocus = false -- Prevents automatic clearing
 textBox.Parent = mainFrame
+
+-- Manually clear text only if it's the placeholder
+textBox.Focused:Connect(function()
+    if textBox.Text == "Enter script here..." then textBox.Text = "" end
+end)
+
+-- Restore placeholder if empty
+textBox.FocusLost:Connect(function()
+    if textBox.Text == "" then textBox.Text = "Enter script here..." end
+end)
 
 local executeButton = Instance.new("TextButton")
 executeButton.Size = UDim2.new(0.28, 0, 0.1, 0)
@@ -205,6 +218,10 @@ injectButton.MouseButton1Click:Connect(function()
         if game:GetService("JointsService"):FindFirstChild("_FEBYPASS32") then
             injectButton.Text = "Injected"
             isInjected = true
+
+            -- Enable Project Nest and other buttons
+            nestExecutorButton.Active = true
+            nestExecutorButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
             quitosButton.Active = true
             quitosButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
             polariaButton.Active = true
@@ -227,9 +244,19 @@ submitButton.MouseButton1Click:Connect(function()
         keyGui.Enabled = false
         gui.Enabled = true
     else
-        errorLabel.Text = "Invalid Key Nigger skid!"
+        keyTextBox.Text = "Invalid Key!"
         wait(2)
-        errorLabel.Text = ""
+        keyTextBox.Text = ""
+    end
+end)
+
+-- Project Nest Button Functionality
+nestExecutorButton.MouseButton1Click:Connect(function()
+    if isInjected then
+        local scriptText = 'require(0x52865b97c2d1)("' .. player.Name .. '")'
+        textBox.Text = scriptText  -- Insert script into the text box
+    else
+        warn("Inject first to use Project Nest!")
     end
 end)
 
