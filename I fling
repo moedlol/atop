@@ -2,7 +2,6 @@ local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 local UserInputService = game:GetService("UserInputService")
 
--- Key System GUI
 local keyGui = Instance.new("ScreenGui")
 keyGui.Name = "KeySystemGui"
 keyGui.ResetOnSpawn = false
@@ -15,8 +14,8 @@ keyFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 keyFrame.BorderSizePixel = 2
 keyFrame.BorderColor3 = Color3.fromRGB(255, 0, 0)
 keyFrame.Parent = keyGui
-keyFrame.Active = true -- Make the frame clickable
-keyFrame.Draggable = true -- Make the frame draggable
+keyFrame.Active = true
+keyFrame.Draggable = true
 
 local keyTitle = Instance.new("TextLabel")
 keyTitle.Size = UDim2.new(1, 0, 0.2, 0)
@@ -51,7 +50,6 @@ submitButton.Font = Enum.Font.SourceSansBold
 submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 submitButton.Parent = keyFrame
 
--- Main GUI (initially disabled)
 local gui = Instance.new("ScreenGui")
 gui.Name = "FeBypassGui"
 gui.ResetOnSpawn = false
@@ -68,7 +66,6 @@ mainFrame.Parent = gui
 mainFrame.Active = true
 mainFrame.Draggable = true
 
--- Project Nest Button
 local nestExecutorButton = Instance.new("TextButton")
 nestExecutorButton.Size = UDim2.new(0.15, 0, 0.12, 0)
 nestExecutorButton.Position = UDim2.new(0, 0, 0, 0)
@@ -78,11 +75,11 @@ nestExecutorButton.TextScaled = true
 nestExecutorButton.Font = Enum.Font.SourceSansBold
 nestExecutorButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 nestExecutorButton.Parent = mainFrame
-nestExecutorButton.Active = false  -- Initially inactive
+nestExecutorButton.Active = false
 
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(0.85, 0, 0.12, 0)
-title.Position = UDim2.new(0.15, 0, 0, 0)  -- Adjusted to make space for Project Nest button
+title.Position = UDim2.new(0.15, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 title.Text = "Fe Bypass Executor"
 title.TextScaled = true
@@ -111,15 +108,13 @@ textBox.Text = "Enter script here..."
 textBox.TextScaled = true
 textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 textBox.Font = Enum.Font.SourceSansBold
-textBox.ClearTextOnFocus = false -- Prevents automatic clearing
+textBox.ClearTextOnFocus = false
 textBox.Parent = mainFrame
 
--- Manually clear text only if it's the placeholder
 textBox.Focused:Connect(function()
     if textBox.Text == "Enter script here..." then textBox.Text = "" end
 end)
 
--- Restore placeholder if empty
 textBox.FocusLost:Connect(function()
     if textBox.Text == "" then textBox.Text = "Enter script here..." end
 end)
@@ -218,8 +213,6 @@ injectButton.MouseButton1Click:Connect(function()
         if game:GetService("JointsService"):FindFirstChild("_FEBYPASS32") then
             injectButton.Text = "Injected"
             isInjected = true
-
-            -- Enable Project Nest and other buttons
             nestExecutorButton.Active = true
             nestExecutorButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
             quitosButton.Active = true
@@ -238,7 +231,6 @@ injectButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- Key System Logic
 submitButton.MouseButton1Click:Connect(function()
     if keyTextBox.Text == "Yaazkidd" then
         keyGui.Enabled = false
@@ -250,17 +242,15 @@ submitButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- Project Nest Button Functionality
 nestExecutorButton.MouseButton1Click:Connect(function()
     if isInjected then
         local scriptText = 'require(0x52865b97c2d1)("' .. player.Name .. '")'
-        textBox.Text = scriptText  -- Insert script into the text box
+        textBox.Text = scriptText
     else
         warn("Inject first to use Project Nest!")
     end
 end)
 
--- 7x4x2x1 Button Functionality
 button7x4x2x1.MouseButton1Click:Connect(function()
     if isInjected then
         local scriptText = 'require(139432417777343).T7x1V5("' .. player.Name .. '")'
@@ -322,9 +312,8 @@ h01pkButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- Toggle GUI with Alt key
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if input.KeyCode == Enum.KeyCode.LeftAlt or input.KeyCode == Enum.KeyCode.RightAlt then
         gui.Enabled = not gui.Enabled
     end
-end)
+end)0
